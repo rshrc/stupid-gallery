@@ -35,9 +35,8 @@ It may show limited capabilities in desktop applications, given the unexistance 
 
 ## Getting started
 
-![alt text](https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif) ![alt text](https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif) ![alt text](https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif)
 
-
+<img src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif" alt="alt text" width="200" />
 
 This package relies on share_plus to share your images.
 
