@@ -35,10 +35,7 @@ It may show limited capabilities to desktop applications, given the unexistance 
 
 ## Getting started
 
-
-<video width="320" height="240" controls>
-  <source src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.mp4" type="video/mp4">
-</video>
+https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.mp4
 
 
 
