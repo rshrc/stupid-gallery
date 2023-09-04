@@ -31,15 +31,11 @@ A flutter package to view a image gallery inspired on Discord, with:
 * [X] Linux
 * [X] Windows
 
-It may show limited capabilities to desktop applications, given the unexistance to swipe.
+It may show limited capabilities in desktop applications, given the unexistance to swipe.
 
 ## Getting started
 
-
-
-<video width="234" height="108" src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.mp4"></video>
-
-
+![](https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif)
 
 This package relies on share_plus to share your images.
 
@@ -54,7 +50,7 @@ import 'package:interactive_gallery/interactive_gallery.dart';
 Invoke the Widget with your image list. Your list has to be List `<File> `for local images or `<String>` for network images.
 
 ```dart
-InteractiveGallery(imageList: networkImages)                            
+InteractiveGallery(imageList: networkImages)                          
 
 ```
 
@@ -108,7 +104,7 @@ Import the library.
 InteractiveGallery(  
                 imageList: networkImages,  
 		singleTapBottomsheWidget: Container(height: 100, color: Colors.red),
-                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                                   
-                )              
+                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                                 
+                )            
 
 ```
