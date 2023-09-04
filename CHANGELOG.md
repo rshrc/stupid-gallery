@@ -1,3 +1,7 @@
+## 1.0.3
+
+* Added gif to documentation
+
 ## 1.0.2
 
 * Fixed the documentation.
