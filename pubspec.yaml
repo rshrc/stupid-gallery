@@ -1,6 +1,6 @@
 name: interactive_gallery
 description: "A flutter package to get an interactive gallery, with multiple actions and views"
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/vcadillog/interactive-gallery/tree/master
 
 environment:

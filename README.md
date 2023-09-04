@@ -35,8 +35,7 @@ It may show limited capabilities in desktop applications, given the unexistance 
 
 ## Getting started
 
-
-<img src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.gif" alt="alt text" width="200" />
+<img src="https://github.com/vcadillog/interactive-gallery/raw/master/assets/image_gallery.gif" alt="alt text" width="200" />
 
 This package relies on share_plus to share your images.
 
@@ -51,7 +50,7 @@ import 'package:interactive_gallery/interactive_gallery.dart';
 Invoke the Widget with your image list. Your list has to be List `<File> `for local images or `<String>` for network images.
 
 ```dart
-InteractiveGallery(imageList: networkImages)                          
+InteractiveGallery(imageList: networkImages)                        
 
 ```
 
@@ -105,7 +104,7 @@ Import the library.
 InteractiveGallery(  
                 imageList: networkImages,  
 		singleTapBottomsheWidget: Container(height: 100, color: Colors.red),
-                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                                 
-                )            
+                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                               
+                )          
 
 ```
