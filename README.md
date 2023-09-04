@@ -35,13 +35,9 @@ It may show limited capabilities to desktop applications, given the unexistance 
 
 ## Getting started
 
-<video 
-    src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.mp4" 
-    
->
-</video>
 
 
+<video width="234" height="108" src="https://github.com/vcadillog/interactive-gallery/blob/master/assets/image_gallery.mp4"></video>
 
 
 
