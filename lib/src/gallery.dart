@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:share_plus/share_plus.dart';
 import 'package:http/http.dart' as http;
 
-//THIS PACKAGE WAS DESIGNED TO WORK IN A NAVIGATOR WIDGET
+/// THIS PACKAGE WAS DESIGNED TO WORK IN A NAVIGATOR WIDGET
 
 class ImageScroller extends StatefulWidget {
   final List<dynamic> imageList;
@@ -55,14 +55,14 @@ class _ImageScrollerState extends State<ImageScroller>
     super.initState();
   }
 
-  // CALCULATING THE POSITION OF THE SCROLL CONTROLED BASED ON THE IMAGE INDEX
+  /// CALCULATING THE POSITION OF THE SCROLL CONTROLED BASED ON THE IMAGE INDEX
 
   double imagePosition(int index) {
     setState(() {});
     return (2 * imagePadding + miniatureWidth) * (index - 1 / 2);
   }
 
-  // CALCULATING THE INDEX OF THE IMAGE BASED ON THE SCROLL CONTROLED POSITION
+  /// CALCULATING THE INDEX OF THE IMAGE BASED ON THE SCROLL CONTROLED POSITION
 
   int imageIndex(double position) {
     int index = (position / (2 * imagePadding + miniatureWidth) + 0.5).round();
@@ -72,7 +72,7 @@ class _ImageScrollerState extends State<ImageScroller>
     return index;
   }
 
-  // CHANGING THE POSITION OF THE SCROLL CONTROLLER
+  /// CHANGING THE POSITION OF THE SCROLL CONTROLLER
 
   void _scrollPosition(int index) {
     double position = imagePosition(index);
@@ -200,7 +200,7 @@ class _ImageScrollerState extends State<ImageScroller>
   }
 }
 
-// SHARE OPTION FOR SHOWMODALBOTTOMSHEET
+/// SHARE OPTION FOR SHOWMODALBOTTOMSHEET
 class ModalSheet extends StatefulWidget {
   final String imagePath;
   const ModalSheet({super.key, required this.imagePath});
@@ -252,36 +252,49 @@ class _ModalSheetState extends State<ModalSheet> {
   }
 }
 
-// MAIN WIDGET OF THE GALLERY
+/// MAIN WIDGET OF THE GALLERY
 
 class InteractiveGallery extends StatefulWidget {
-  // Your image data, required data, <File> type for local image,<String> type for network images.
+  /// The image list of the gallery.
   final List<dynamic> imageList;
-  //  The initial index of your list,
+
+  ///  The initial index of your list.
   final int index;
-  // The smallest image scale
+
+  /// The smallest image scale.
   final double minScale;
-  // The highest imag scale
+
+  /// The highest imag scale.
   final double maxScale;
-  // The minimum swiping stiffness, keep it low, to avoid diagonal movements on changing the images when sliding
+
+  /// The minimum swiping stiffness, keep it low, to avoid diagonal movements on changing the images when sliding.
   final double minStiffness;
-  // The maximum swiping stiffness
+
+  /// The maximum swiping stiffness.
   final double maxStiffness;
-  // The window height proportion to pop the navigator when sliding up or down
+
+  /// The window height proportion to pop the navigator when sliding up or down.
   final double heightWindowPop;
-  // The color of the empty space of your screen
+
+  /// The color of the empty space of your screen.
   final Color backgroundColor;
-  // The color of the default bottomsheet on tap
+
+  /// The color of the default bottomsheet on tap.
   final Color firstBottomsheetColor;
-  // The height of the default bottomsheet on tap
+
+  /// The height of the default bottomsheet on tap.
   final double firstBottomsheetHeight;
-  // The border radius of the default bottomsheet on tap
+
+  /// The border radius of the default bottomsheet on tap.
   final double firstBottomsheetBorderRadius;
-  // Customizable bottomsheet Widget when doing simple tap on the screen
+
+  /// Customizable bottomsheet Widget when doing simple tap on the screen.
   final Widget? singleTapBottomsheetWidget;
-  // Customizable bottomsheet Widget when doing long tap on the screen or when taping more options
+
+  /// Customizable bottomsheet Widget when doing long tap on the screen or when taping more options.
   final Widget? longTapBottomsheetWidget;
-  // The width of the miniatures images
+
+  /// The width of the miniatures images.
   final double miniatureWidth;
 
   const InteractiveGallery({
@@ -337,7 +350,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
     super.initState();
   }
 
-  // CLOSING THE INVOKED NAVIGATOR
+  /// CLOSING THE INVOKED NAVIGATOR
 
   void _closeSingleBottom() {
     if (isOpenBottom) {
@@ -346,7 +359,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
     }
   }
 
-  // COUNTING THE NUMBER OF FINGERS ON THE SCREEN
+  /// COUNTING THE NUMBER OF FINGERS ON THE SCREEN
 
   void _incrementDown(PointerEvent details) {
     setState(() {
@@ -359,7 +372,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
     });
   }
 
-  // DECREASING THE COUNT OF THE NUMBER OF FINGERS ON RELEASE
+  /// DECREASING THE COUNT OF THE NUMBER OF FINGERS ON RELEASE
 
   void _incrementUp(PointerEvent details) {
     setState(() {
@@ -368,7 +381,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
     });
   }
 
-  // CALCULATING THE POSITION OF THE IMAGE WHEN DRAG UP OR DOWN
+  /// CALCULATING THE POSITION OF THE IMAGE WHEN DRAG UP OR DOWN
 
   void _updateLocation(PointerEvent details) {
     setState(() {
@@ -526,8 +539,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
             )));
   }
 
-  // ACTIONS WHEN DOING SIMPLE TAP ON THE SCREEN
-  // OPENING A BOTTOMSHEET WITH THE MINIATURES OF THE IMAGE LIST
+  /// OPENING A BOTTOMSHEET WITH THE MINIATURES OF THE IMAGE LIST
 
   void _handleSimpleTap(BuildContext theContext) {
     if (!isClosing) {
@@ -573,8 +585,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
     }
   }
 
-  // ACTIONS WHEN DOING DOUBLE TAP ON THE SCREEN
-  // ZOOM IN OR ZOOM OUT THE IMAGE
+  /// ZOOM IN OR ZOOM OUT THE IMAGE
 
   void _handleDoubleTap() {
     if (_transformationController.value != Matrix4.identity()) {
