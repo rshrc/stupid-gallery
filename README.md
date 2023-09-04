@@ -22,7 +22,6 @@ A flutter package to view a image gallery inspired on Discord, with:
 * Sharing the selected image to other apps.
 * Highly customizable miniature views on the botomsheet.
 
-
 ## Platform Support
 
 * [X] Android
@@ -40,7 +39,6 @@ This package relies on share_plus to share your images.
 
 ## Usage
 
-
 Import the library.
 
 ```dart
@@ -50,14 +48,13 @@ import 'package:interactive_gallery/interactive_gallery.dart';
 Invoke the Widget with your image list. Your list has to be List `<File> `for local images or `<String>` for network images.
 
 ```dart
-InteractiveGallery(imageList: networkImages)                              
+InteractiveGallery(imageList: networkImages)                            
 
 ```
 
 ## Additional information
 
 Arguments of the package:
-
 
 * imageList;
   Your image data, required data, `<File> `type for local image,`<String>` type for network images.
@@ -97,9 +94,7 @@ Arguments of the package:
 
   Customizable bottomsheet Widget when doing long tap on the screen or when taping more options, default is the ModalSheet Widget, to share your picture to other apps.
 
-
 ## Customizing bottomsheet Widgets
-
 
 Import the library.
 
@@ -107,7 +102,7 @@ Import the library.
 InteractiveGallery(  
                 imageList: networkImages,  
 		singleTapBottomsheWidget: Container(height: 100, color: Colors.red),
-                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                                     
-                )                
+                longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),                                                   
+                )              
 
 ```

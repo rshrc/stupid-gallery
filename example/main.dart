@@ -35,14 +35,16 @@ class _ExampleState extends State<Example> {
         body: Center(
           child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context, rootNavigator: true)
-                    .push(PageRouteBuilder(
+                Navigator.of(context, rootNavigator: true).push(PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (context, _, __) {
                     return InteractiveGallery(
                       imageList: networkImages,
                       backgroundColor: Colors.black.withOpacity(0.95),
-                      // singleTapBottomsheWidget: Container(height: 100, color: Colors.red),
+
+                      /// CUSTOM SINGLE TAP BOTTOMSHEET, REPLACES THE DEFAULT MINIATURES
+                      // singleTapBottomsheetWidget: Container(height: 100, color: Colors.red),
+                      /// CUSTOM LONG TAP BOTTOMSHEET, REPLACES THE DEFAULT SHARING
                       // longTapBottomsheetWidget: Container(height: 100, color: Colors.yellow),
                     );
                   },
