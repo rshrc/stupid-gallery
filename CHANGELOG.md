@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Fixed the documentation.
+
 ## 1.0.1
 
 * Fixed the share option for network images.
