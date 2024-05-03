@@ -1,9 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'dart:io';
-import 'package:share_plus/share_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 
 /// THIS PACKAGE WAS DESIGNED TO WORK IN A NAVIGATOR WIDGET
 
@@ -547,7 +547,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
         setState(() {
           isOpenBottom = true;
         });
-        Scaffold.of(theContext).showBottomSheet<void>(
+        Scaffold.of(theContext).showBottomSheet(
           enableDrag: false,
           backgroundColor: widget.firstBottomsheetColor,
           shape: RoundedRectangleBorder(
