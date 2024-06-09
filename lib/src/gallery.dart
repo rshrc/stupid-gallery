@@ -17,15 +17,14 @@ class ImageScroller extends StatefulWidget {
   final double miniatureWidth;
   final Function(int index)? onChangedIndex;
   const ImageScroller(
-      {Key? key,
+      {super.key,
       required this.imageList,
       required this.color,
       required this.height,
       required this.borderRadius,
       this.index = 0,
       this.miniatureWidth = 20,
-      this.onChangedIndex})
-      : super(key: key);
+      this.onChangedIndex});
 
   @override
   State<ImageScroller> createState() => _ImageScrollerState();
@@ -50,7 +49,9 @@ class _ImageScrollerState extends State<ImageScroller>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double initialScrollPosition = imagePosition(activeImageIdx);
-      _controller.jumpTo(initialScrollPosition);
+      if (_controller.hasClients) {
+        _controller.jumpTo(initialScrollPosition);
+      }
     });
     super.initState();
   }
@@ -88,11 +89,8 @@ class _ImageScrollerState extends State<ImageScroller>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        return false;
-      },
+    return PopScope(
+      canPop: true,
       child: Row(
         children: [
           SizedBox(
@@ -298,7 +296,7 @@ class InteractiveGallery extends StatefulWidget {
   final double miniatureWidth;
 
   const InteractiveGallery({
-    Key? key,
+    super.key,
     required this.imageList,
     this.index = 0,
     this.minScale = 1.0,
@@ -313,7 +311,7 @@ class InteractiveGallery extends StatefulWidget {
     this.miniatureWidth = 20,
     this.singleTapBottomsheetWidget,
     this.longTapBottomsheetWidget,
-  }) : super(key: key);
+  });
 
   @override
   State<InteractiveGallery> createState() => _InteractiveGalleryState();
@@ -354,7 +352,6 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
 
   void _closeSingleBottom() {
     if (isOpenBottom) {
-      Navigator.pop(context);
       isOpenBottom = !isOpenBottom;
     }
   }
@@ -496,9 +493,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
                           child: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
                             onPressed: () {
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
-                              setState(() {});
+                              Navigator.pop(context);
                             },
                           ),
                         ),
@@ -547,33 +542,36 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
         setState(() {
           isOpenBottom = true;
         });
-        Scaffold.of(theContext).showBottomSheet(
-          enableDrag: false,
-          backgroundColor: widget.firstBottomsheetColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(widget.firstBottomsheetBorderRadius),
-                  topRight:
-                      Radius.circular(widget.firstBottomsheetBorderRadius))),
-          (BuildContext context) {
-            return widget.singleTapBottomsheetWidget == null
-                ? ImageScroller(
-                    imageList: imageList,
-                    color: widget.firstBottomsheetColor,
-                    height: widget.firstBottomsheetHeight,
-                    borderRadius: widget.firstBottomsheetBorderRadius,
-                    index: _pageController.page!.round(),
-                    onChangedIndex: (index) {
-                      setState(() {
-                        _pageController.animateToPage(index - 1,
+        showModalBottomSheet(
+            context: theContext,
+            enableDrag: false,
+            backgroundColor: widget.firstBottomsheetColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft:
+                        Radius.circular(widget.firstBottomsheetBorderRadius),
+                    topRight:
+                        Radius.circular(widget.firstBottomsheetBorderRadius))),
+            builder: (BuildContext context) {
+              return widget.singleTapBottomsheetWidget == null
+                  ? ImageScroller(
+                      imageList: imageList,
+                      color: widget.firstBottomsheetColor,
+                      height: widget.firstBottomsheetHeight,
+                      borderRadius: widget.firstBottomsheetBorderRadius,
+                      index: _pageController.page!.round(),
+                      onChangedIndex: (index) {
+                        setState(() {
+                          _pageController.animateToPage(
+                            index - 1,
                             duration: const Duration(milliseconds: 500),
-                            curve: Curves.fastOutSlowIn);
-                      });
-                    },
-                  )
-                : widget.singleTapBottomsheetWidget!;
-          },
-        );
+                            curve: Curves.fastOutSlowIn,
+                          );
+                        });
+                      },
+                    )
+                  : widget.singleTapBottomsheetWidget!;
+            });
       } else if (isOpenBottom) {
         setState(() {
           isOpenBottom = false;
