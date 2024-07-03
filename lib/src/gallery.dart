@@ -50,7 +50,10 @@ class _ImageScrollerState extends State<ImageScroller>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double initialScrollPosition = imagePosition(activeImageIdx);
-      _controller.jumpTo(initialScrollPosition);
+
+      if (_controller.hasClients) {
+        _controller.jumpTo(initialScrollPosition);
+      }
     });
     super.initState();
   }
@@ -497,11 +500,12 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
                                   const BorderRadius.all(Radius.circular(50))),
                           child: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
-                            onPressed: widget.onBack ?? () {
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
-                              setState(() {});
-                            },
+                            onPressed: widget.onBack ??
+                                () {
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst);
+                                  setState(() {});
+                                },
                           ),
                         ),
                       )
