@@ -497,7 +497,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
                                   const BorderRadius.all(Radius.circular(50))),
                           child: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
-                            onPressed: onBack ?? () {
+                            onPressed: widget.onBack ?? () {
                               Navigator.of(context)
                                   .popUntil((route) => route.isFirst);
                               setState(() {});
