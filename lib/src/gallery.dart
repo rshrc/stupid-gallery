@@ -17,14 +17,15 @@ class ImageScroller extends StatefulWidget {
   final double miniatureWidth;
   final Function(int index)? onChangedIndex;
   const ImageScroller(
-      {super.key,
+      {Key? key,
       required this.imageList,
       required this.color,
       required this.height,
       required this.borderRadius,
       this.index = 0,
       this.miniatureWidth = 20,
-      this.onChangedIndex});
+      this.onChangedIndex})
+      : super(key: key);
 
   @override
   State<ImageScroller> createState() => _ImageScrollerState();
@@ -49,9 +50,7 @@ class _ImageScrollerState extends State<ImageScroller>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double initialScrollPosition = imagePosition(activeImageIdx);
-      if (_controller.hasClients) {
-        _controller.jumpTo(initialScrollPosition);
-      }
+      _controller.jumpTo(initialScrollPosition);
     });
     super.initState();
   }
@@ -89,8 +88,11 @@ class _ImageScrollerState extends State<ImageScroller>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return PopScope(
-      canPop: true,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        return false;
+      },
       child: Row(
         children: [
           SizedBox(
@@ -294,9 +296,10 @@ class InteractiveGallery extends StatefulWidget {
 
   /// The width of the miniatures images.
   final double miniatureWidth;
+  final VoidCallback? onBack;
 
   const InteractiveGallery({
-    super.key,
+    Key? key,
     required this.imageList,
     this.index = 0,
     this.minScale = 1.0,
@@ -311,7 +314,8 @@ class InteractiveGallery extends StatefulWidget {
     this.miniatureWidth = 20,
     this.singleTapBottomsheetWidget,
     this.longTapBottomsheetWidget,
-  });
+    this.onBack,
+  }) : super(key: key);
 
   @override
   State<InteractiveGallery> createState() => _InteractiveGalleryState();
@@ -352,6 +356,7 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
 
   void _closeSingleBottom() {
     if (isOpenBottom) {
+      Navigator.pop(context);
       isOpenBottom = !isOpenBottom;
     }
   }
@@ -492,8 +497,10 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
                                   const BorderRadius.all(Radius.circular(50))),
                           child: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
-                            onPressed: () {
-                              Navigator.pop(context);
+                            onPressed: onBack ?? () {
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              setState(() {});
                             },
                           ),
                         ),
@@ -542,36 +549,33 @@ class _InteractiveGalleryState extends State<InteractiveGallery>
         setState(() {
           isOpenBottom = true;
         });
-        showModalBottomSheet(
-            context: theContext,
-            enableDrag: false,
-            backgroundColor: widget.firstBottomsheetColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft:
-                        Radius.circular(widget.firstBottomsheetBorderRadius),
-                    topRight:
-                        Radius.circular(widget.firstBottomsheetBorderRadius))),
-            builder: (BuildContext context) {
-              return widget.singleTapBottomsheetWidget == null
-                  ? ImageScroller(
-                      imageList: imageList,
-                      color: widget.firstBottomsheetColor,
-                      height: widget.firstBottomsheetHeight,
-                      borderRadius: widget.firstBottomsheetBorderRadius,
-                      index: _pageController.page!.round(),
-                      onChangedIndex: (index) {
-                        setState(() {
-                          _pageController.animateToPage(
-                            index - 1,
+        Scaffold.of(theContext).showBottomSheet(
+          enableDrag: false,
+          backgroundColor: widget.firstBottomsheetColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(widget.firstBottomsheetBorderRadius),
+                  topRight:
+                      Radius.circular(widget.firstBottomsheetBorderRadius))),
+          (BuildContext context) {
+            return widget.singleTapBottomsheetWidget == null
+                ? ImageScroller(
+                    imageList: imageList,
+                    color: widget.firstBottomsheetColor,
+                    height: widget.firstBottomsheetHeight,
+                    borderRadius: widget.firstBottomsheetBorderRadius,
+                    index: _pageController.page!.round(),
+                    onChangedIndex: (index) {
+                      setState(() {
+                        _pageController.animateToPage(index - 1,
                             duration: const Duration(milliseconds: 500),
-                            curve: Curves.fastOutSlowIn,
-                          );
-                        });
-                      },
-                    )
-                  : widget.singleTapBottomsheetWidget!;
-            });
+                            curve: Curves.fastOutSlowIn);
+                      });
+                    },
+                  )
+                : widget.singleTapBottomsheetWidget!;
+          },
+        );
       } else if (isOpenBottom) {
         setState(() {
           isOpenBottom = false;
